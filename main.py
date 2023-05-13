@@ -1,8 +1,6 @@
 from queue import PriorityQueue
 
 # Manhattan distance as heuristic
-
-
 def heuristic(state):
     h = 0
     for i in range(3):
@@ -15,8 +13,6 @@ def heuristic(state):
     return h
 
 # returns the row and column index of the first occurrence of the given fruit in the puzzle state
-
-
 def find_fruit(state, fruit, size):
     for i in range(3):
         for j in range(10):
@@ -24,9 +20,8 @@ def find_fruit(state, fruit, size):
                 return i, j
     return -1, -1
 
+
 # A* search algorithm
-
-
 def astar(initial_state):
     # create a priority queue to store the states to be explored
     queue = PriorityQueue()
@@ -57,11 +52,10 @@ def astar(initial_state):
             for j in range(10):
                 # check if it's possible to swap the current fruit with the one to its right
                 if j < 9:
-                    # create a new state by swapping the current fruit with the one to its right
                     next_state = [list(row) for row in current_state]
 
-                    next_state[i][j], next_state[i][j +
-                                                    1] = next_state[i][j+1], next_state[i][j]
+                    # create a new state by swapping the current fruit with the one to its right
+                    next_state[i][j], next_state[i][j+1] = next_state[i][j+1], next_state[i][j]
 
                     # check if the new state has not been visited yet
                     if tuple(map(tuple, next_state)) not in visited:
@@ -74,8 +68,7 @@ def astar(initial_state):
                 # check if it's possible to swap the current fruit with the one to its up
                 if i < 2:
                     next_state = [list(row) for row in current_state]
-                    next_state[i][j], next_state[i +
-                                                 1][j] = next_state[i+1][j], next_state[i][j]
+                    next_state[i][j], next_state[i+1][j] = next_state[i+1][j], next_state[i][j]
                     if tuple(map(tuple, next_state)) not in visited:
                         new_cost = cost_so_far + 1
                         queue.put((new_cost + heuristic(next_state),
